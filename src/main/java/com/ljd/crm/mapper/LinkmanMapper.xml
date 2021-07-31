@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.java.com.ljd.crm.mapper.LinkmanMapper">
+  <resultMap id="BaseResultMap" type="main.java.com.ljd.crm.pojo.Linkman">
+    <id column="lkm_id" jdbcType="BIGINT" property="lkmId" />
+    <result column="lkm_name" jdbcType="VARCHAR" property="lkmName" />
+    <result column="lkm_cust_id" jdbcType="BIGINT" property="lkmCustId" />
+    <result column="lkm_gender" jdbcType="CHAR" property="lkmGender" />
+    <result column="lkm_phone" jdbcType="VARCHAR" property="lkmPhone" />
+    <result column="lkm_mobile" jdbcType="VARCHAR" property="lkmMobile" />
+    <result column="lkm_email" jdbcType="VARCHAR" property="lkmEmail" />
+    <result column="lkm_wechat" jdbcType="VARCHAR" property="lkmWechat" />
+    <result column="lkm_position" jdbcType="VARCHAR" property="lkmPosition" />
+    <result column="lkm_memo" jdbcType="VARCHAR" property="lkmMemo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    lkm_id, lkm_name, lkm_cust_id, lkm_gender, lkm_phone, lkm_mobile, lkm_email, lkm_wechat, 
+    lkm_position, lkm_memo
+  </sql>
+  <select id="selectByExample" parameterType="main.java.com.ljd.crm.pojo.LinkmanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cst_linkman
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cst_linkman
+    where lkm_id = #{lkmId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cst_linkman
+    where lkm_id = #{lkmId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="main.java.com.ljd.crm.pojo.LinkmanExample">
+    delete from cst_linkman
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="main.java.com.ljd.crm.pojo.Linkman">
+    insert into cst_linkman (lkm_id, lkm_name, lkm_cust_id, 
+      lkm_gender, lkm_phone, lkm_mobile, 
+      lkm_email, lkm_wechat, lkm_position, 
+      lkm_memo)
+    values (#{lkmId,jdbcType=BIGINT}, #{lkmName,jdbcType=VARCHAR}, #{lkmCustId,jdbcType=BIGINT}, 
+      #{lkmGender,jdbcType=CHAR}, #{lkmPhone,jdbcType=VARCHAR}, #{lkmMobile,jdbcType=VARCHAR}, 
+      #{lkmEmail,jdbcType=VARCHAR}, #{lkmWechat,jdbcType=VARCHAR}, #{lkmPosition,jdbcType=VARCHAR}, 
+      #{lkmMemo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="main.java.com.ljd.crm.pojo.Linkman">
+    insert into cst_linkman
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lkmId != null">
+        lkm_id,
+      </if>
+      <if test="lkmName != null">
+        lkm_name,
+      </if>
+      <if test="lkmCustId != null">
+        lkm_cust_id,
+      </if>
+      <if test="lkmGender != null">
+        lkm_gender,
+      </if>
+      <if test="lkmPhone != null">
+        lkm_phone,
+      </if>
+      <if test="lkmMobile != null">
+        lkm_mobile,
+      </if>
+      <if test="lkmEmail != null">
+        lkm_email,
+      </if>
+      <if test="lkmWechat != null">
+        lkm_wechat,
+      </if>
+      <if test="lkmPosition != null">
+        lkm_position,
+      </if>
+      <if test="lkmMemo != null">
+        lkm_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lkmId != null">
+        #{lkmId,jdbcType=BIGINT},
+      </if>
+      <if test="lkmName != null">
+        #{lkmName,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmCustId != null">
+        #{lkmCustId,jdbcType=BIGINT},
+      </if>
+      <if test="lkmGender != null">
+        #{lkmGender,jdbcType=CHAR},
+      </if>
+      <if test="lkmPhone != null">
+        #{lkmPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMobile != null">
+        #{lkmMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmEmail != null">
+        #{lkmEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmWechat != null">
+        #{lkmWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmPosition != null">
+        #{lkmPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMemo != null">
+        #{lkmMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="main.java.com.ljd.crm.pojo.LinkmanExample" resultType="java.lang.Long">
+    select count(*) from cst_linkman
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cst_linkman
+    <set>
+      <if test="record.lkmId != null">
+        lkm_id = #{record.lkmId,jdbcType=BIGINT},
+      </if>
+      <if test="record.lkmName != null">
+        lkm_name = #{record.lkmName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lkmCustId != null">
+        lkm_cust_id = #{record.lkmCustId,jdbcType=BIGINT},
+      </if>
+      <if test="record.lkmGender != null">
+        lkm_gender = #{record.lkmGender,jdbcType=CHAR},
+      </if>
+      <if test="record.lkmPhone != null">
+        lkm_phone = #{record.lkmPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lkmMobile != null">
+        lkm_mobile = #{record.lkmMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lkmEmail != null">
+        lkm_email = #{record.lkmEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lkmWechat != null">
+        lkm_wechat = #{record.lkmWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lkmPosition != null">
+        lkm_position = #{record.lkmPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lkmMemo != null">
+        lkm_memo = #{record.lkmMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cst_linkman
+    set lkm_id = #{record.lkmId,jdbcType=BIGINT},
+      lkm_name = #{record.lkmName,jdbcType=VARCHAR},
+      lkm_cust_id = #{record.lkmCustId,jdbcType=BIGINT},
+      lkm_gender = #{record.lkmGender,jdbcType=CHAR},
+      lkm_phone = #{record.lkmPhone,jdbcType=VARCHAR},
+      lkm_mobile = #{record.lkmMobile,jdbcType=VARCHAR},
+      lkm_email = #{record.lkmEmail,jdbcType=VARCHAR},
+      lkm_wechat = #{record.lkmWechat,jdbcType=VARCHAR},
+      lkm_position = #{record.lkmPosition,jdbcType=VARCHAR},
+      lkm_memo = #{record.lkmMemo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="main.java.com.ljd.crm.pojo.Linkman">
+    update cst_linkman
+    <set>
+      <if test="lkmName != null">
+        lkm_name = #{lkmName,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmCustId != null">
+        lkm_cust_id = #{lkmCustId,jdbcType=BIGINT},
+      </if>
+      <if test="lkmGender != null">
+        lkm_gender = #{lkmGender,jdbcType=CHAR},
+      </if>
+      <if test="lkmPhone != null">
+        lkm_phone = #{lkmPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMobile != null">
+        lkm_mobile = #{lkmMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmEmail != null">
+        lkm_email = #{lkmEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmWechat != null">
+        lkm_wechat = #{lkmWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmPosition != null">
+        lkm_position = #{lkmPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMemo != null">
+        lkm_memo = #{lkmMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lkm_id = #{lkmId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="main.java.com.ljd.crm.pojo.Linkman">
+    update cst_linkman
+    set lkm_name = #{lkmName,jdbcType=VARCHAR},
+      lkm_cust_id = #{lkmCustId,jdbcType=BIGINT},
+      lkm_gender = #{lkmGender,jdbcType=CHAR},
+      lkm_phone = #{lkmPhone,jdbcType=VARCHAR},
+      lkm_mobile = #{lkmMobile,jdbcType=VARCHAR},
+      lkm_email = #{lkmEmail,jdbcType=VARCHAR},
+      lkm_wechat = #{lkmWechat,jdbcType=VARCHAR},
+      lkm_position = #{lkmPosition,jdbcType=VARCHAR},
+      lkm_memo = #{lkmMemo,jdbcType=VARCHAR}
+    where lkm_id = #{lkmId,jdbcType=BIGINT}
+  </update>
+</mapper>
